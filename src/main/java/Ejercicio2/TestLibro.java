@@ -1,10 +1,12 @@
 package Ejercicio2;
 
 import org.example.Coche;
+import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.*;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -12,55 +14,47 @@ import java.util.List;
 
 public class TestLibro {
     public static void main(String[] args) {
+        Coche car = new Coche(10, 50);
+        Coche car2 = new Coche(12, 60);
+
         Libro libro = new Libro("Meditaciones", 978849927, "Marco Aurelio", 2024, "edaf", 7.00);
-        try (FileWriter salida = new FileWriter("ficheros/FicheroLibro.txt") {
+        try (FileWriter salida = new FileWriter("ficheros/FicheroLibro.txt")) {
 
-            //salida.writeObject(libro);
-
+            // Salida del objeto libro
             System.out.println(libro);
-            /**GUARDAR FICHEROS
-             * TXT
-             * Guardo primero el deposito
-             */
-            salida.write("Deposito coche A: " + car.getDeposito() + "l\r");
-            salida.write("Deposito coche B: " + car2.getDeposito() + "l\r");
-            /*Guardo tambien el kilometraje*/
-            salida.write(car.autonomiaKm()+ "\r");
-            salida.write(car2.autonomiaKm()+ "\r");
-
 
             // Guardar los datos en un archivo XML
+            List<Coche> listaCoches = new ArrayList<>();
             listaCoches.add(car);
             listaCoches.add(car2);
             Coche.writeXMLCoches(listaCoches, "ficheros/FicheroCoche.xml");
 
-            //Guardar los datos en un archivo GSON
+            // Guardar los datos en un archivo JSON
             Coche.writeJSONCoches(listaCoches, "ficheros/FicheroCoche.json");
 
-            //-----Para leer el csv------------------------------
-            ArrayList<Coche> miListaCoches=new ArrayList<>();
+            // Guardar los datos en un archivo CSV
+            ArrayList<Coche> miListaCoches = new ArrayList<>();
             miListaCoches.add(car);
             miListaCoches.add(car2);
-            Coche.writeCSVCoches(miListaCoches,"ficheros/coches");
+            Coche.writeCSVCoches(miListaCoches, "ficheros/FicheroCoche");
 
-            ArrayList<Coche> miListaCoches2 = new ArrayList<>(Coche.readCSVCoches("ficheros/coches.csv"));
+            // Leer desde un archivo CSV
+            List<Coche> miListaCoches2 = Coche.readCSVCoches("ficheros/FicheroCoche.csv");
+            System.out.println("Hay en la lista: " + miListaCoches2);
 
-            System.out.println("Hay en la lista: "+miListaCoches2);
-            //--------Para leer el json--------------------------------------
+            // Leer desde un archivo JSON
             Path jsonFilePath = Paths.get("ficheros/FicheroCoche.json");
             List<Coche> cochesDesdeJSON = Coche.readJSONCoches(jsonFilePath);
             System.out.println("Coches desde JSON: " + cochesDesdeJSON);
 
-            //--------Para leer el xml--------------------------------------
+            // Leer desde un archivo XML
             List<Coche> cochesDesdeXML = Coche.readCochessXML("ficheros/FicheroCoche.xml");
             System.out.println("Coches desde XML: " + cochesDesdeXML);
 
-
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException   e) {
+        } catch (IOException | ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
+        } catch (SAXException e) {
+            throw new RuntimeException(e);
         }
     }
 }

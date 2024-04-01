@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <Coches>
     <Coche>
-        <Consumo>7</Consumo>
-        <Deposito>10</Deposito>
-        <Autonomia>142.85715</Autonomia>
+        <Consumo>10</Consumo>
+        <Deposito>50</Deposito>
+        <Autonomia>500.0</Autonomia>
     </Coche>
     <Coche>
-        <Consumo>15</Consumo>
-        <Deposito>10</Deposito>
-        <Autonomia>66.666664</Autonomia>
+        <Consumo>12</Consumo>
+        <Deposito>60</Deposito>
+        <Autonomia>500.0</Autonomia>
     </Coche>
 </Coches>

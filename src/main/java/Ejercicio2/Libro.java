@@ -1,17 +1,9 @@
 package Ejercicio2;
 
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import org.example.Coche;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -22,28 +14,22 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
+
+import com.google.gson.reflect.TypeToken;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
+import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Nota del programador: un libro que tiene?
- * titulo
- * isbn
- * autor
- * año de publicación
- * editorial
- * precio
- */
 
 public class Libro {
     private String titulo;
@@ -109,44 +95,59 @@ public class Libro {
     public void setPrecio(double precio) {
         this.precio = precio;
     }
-    public static void writeCSVCoches(List<Coche> listaCoches, String fileName) throws IOException {
-        final String NOMBRE_FILE = fileName + ".csv";
-        Files.writeString(Paths.get(NOMBRE_FILE), "consumo, deposito\n\r", StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-        for (Coche coche : listaCoches) {
-            Files.writeString(Paths.get(NOMBRE_FILE), coche.toString(), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
-        }
 
+    public static void writeCSVLibros(List<Libro> listaLibros, String fileName) throws IOException {
+        final String NOMBRE_FILE = fileName + ".csv";
+        Files.writeString(Paths.get(NOMBRE_FILE), "titulo, isbn, autor, anio, editorial, precio\n\r", StandardCharsets.UTF_8, StandardOpenOption.CREATE);
+        for (Libro libro : listaLibros) {
+            Files.writeString(Paths.get(NOMBRE_FILE), libro.toString(), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+        }
     }
 
-    public static void writeXMLCoches(List<Coche> listaCoches, String fileName) throws ParserConfigurationException, TransformerException {
+    public static void writeXMLLibros(List<Libro> listaLibros, String fileName) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.newDocument();
 
         // Elemento raíz
-        Element cochesElement = doc.createElement("Coches");
-        doc.appendChild(cochesElement);
+        Element librosElement = doc.createElement("Libros");
+        doc.appendChild(librosElement);
 
-        // Para cada coche en la lista
-        for (Coche coche : listaCoches) {
-            // Elemento coche
-            Element cocheElement = doc.createElement("Coche");
-            cochesElement.appendChild(cocheElement);
+        // Para cada libro en la lista
+        for (Libro libro : listaLibros) {
+            // Elemento libro
+            Element libroElement = doc.createElement("Libro");
+            librosElement.appendChild(libroElement);
 
-            // Elemento consumo
-            Element consumoElement = doc.createElement("Consumo");
-            consumoElement.appendChild(doc.createTextNode(String.valueOf(coche.getConsumo())));
-            cocheElement.appendChild(consumoElement);
+            // Elemento titulo
+            Element tituloElement = doc.createElement("Titulo");
+            tituloElement.appendChild(doc.createTextNode(libro.getTitulo()));
+            libroElement.appendChild(tituloElement);
 
-            // Elemento deposito
-            Element depositoElement = doc.createElement("Deposito");
-            depositoElement.appendChild(doc.createTextNode(String.valueOf(coche.getDeposito())));
-            cocheElement.appendChild(depositoElement);
+            // Elemento isbn
+            Element isbnElement = doc.createElement("ISBN");
+            isbnElement.appendChild(doc.createTextNode(String.valueOf(libro.getIsbn())));
+            libroElement.appendChild(isbnElement);
 
-            // Elemento autonomía
-            Element autonomiaElement = doc.createElement("Autonomia");
-            autonomiaElement.appendChild(doc.createTextNode(String.valueOf(coche.autonomiaKm())));
-            cocheElement.appendChild(autonomiaElement);
+            // Elemento autor
+            Element autorElement = doc.createElement("Autor");
+            autorElement.appendChild(doc.createTextNode(libro.getAutor()));
+            libroElement.appendChild(autorElement);
+
+            // Elemento anio
+            Element anioElement = doc.createElement("Anio");
+            anioElement.appendChild(doc.createTextNode(String.valueOf(libro.getAnio())));
+            libroElement.appendChild(anioElement);
+
+            // Elemento editorial
+            Element editorialElement = doc.createElement("Editorial");
+            editorialElement.appendChild(doc.createTextNode(libro.getEditorial()));
+            libroElement.appendChild(editorialElement);
+
+            // Elemento precio
+            Element precioElement = doc.createElement("Precio");
+            precioElement.appendChild(doc.createTextNode(String.valueOf(libro.getPrecio())));
+            libroElement.appendChild(precioElement);
         }
 
         // Transformar y escribir en archivo
@@ -158,86 +159,74 @@ public class Libro {
         transformer.transform(source, result);
     }
 
-    /*Guardar un fichero JSON*/
-    public static void writeJSONCoches(List<Coche> listaCoches, String fileName) throws IOException {
+    public static void writeJSONLibros(List<Libro> listaLibros, String fileName) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        JsonArray jsonCoches = new JsonArray();
+        JsonArray jsonLibros = new JsonArray();
 
-        for (Coche coche : listaCoches) {
-            JsonObject jsonCoche = new JsonObject();
-            jsonCoche.addProperty("consumo", coche.getConsumo());
-            jsonCoche.addProperty("deposito", coche.getDeposito());
-            jsonCoche.addProperty("autonomia", coche.autonomiaKm());
-            jsonCoches.add(jsonCoche);
+        for (Libro libro : listaLibros) {
+            JsonObject jsonLibro = new JsonObject();
+            jsonLibro.addProperty("titulo", libro.getTitulo());
+            jsonLibro.addProperty("isbn", libro.getIsbn());
+            jsonLibro.addProperty("autor", libro.getAutor());
+            jsonLibro.addProperty("anio", libro.getAnio());
+            jsonLibro.addProperty("editorial", libro.getEditorial());
+            jsonLibro.addProperty("precio", libro.getPrecio());
+            jsonLibros.add(jsonLibro);
         }
 
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(fileName))) {
-            writer.write(gson.toJson(jsonCoches));
+            writer.write(gson.toJson(jsonLibros));
         }
     }
 
-    public static List<Coche> readCSVCoches(String fileName) {
-        List<Coche> coches = new ArrayList<>();
-        try {
-            List<String> lineas = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8);
-
-            // Verificar si la primera línea es un encabezado y omitirla si es necesario
-            boolean esEncabezado = true;
-            for (String linea : lineas) {
-                if (esEncabezado) {
-                    esEncabezado = false;
-                    continue; // Saltar la primera línea del archivo CSV
-                }
-
-                if (!linea.isEmpty()) { // Verificar que la línea no esté vacía
-                    String[] partes = linea.split(",");
-                    if (partes.length >= 2 && !partes[0].isEmpty() && !partes[1].isEmpty()) { // Verificar que haya al menos dos partes (consumo y depósito) y que no estén vacías
-                        int consumo = Integer.parseInt(partes[0].trim());
-                        int deposito = Integer.parseInt(partes[1].trim());
-                        coches.add(new Coche(consumo, deposito));
-                    }
+    public static List<Libro> readCSVLibros(String fileName) throws IOException {
+        List<Libro> libros = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            // Ignorar la primera línea (encabezado)
+            reader.readLine();
+            while ((line = reader.readLine()) != null) {
+                String[] partes = line.split(",");
+                if (partes.length == 6) {
+                    String titulo = partes[0].trim();
+                    long isbn = Long.parseLong(partes[1].trim());
+                    String autor = partes[2].trim();
+                    int anio = Integer.parseInt(partes[3].trim());
+                    String editorial = partes[4].trim();
+                    double precio = Double.parseDouble(partes[5].trim());
+                    libros.add(new Libro(titulo, isbn, autor, anio, editorial, precio));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return coches;
+        return libros;
     }
 
-
-    public static List<Coche> readJSONCoches(Path path) throws IOException {
-        // create a reader
-        try (Reader reader = Files.newBufferedReader(path)) {
-            //Type, esta es una clase del propio lenguaje de programación Java que nos permite
-            // representar cualquier tipo que el lenguaje soporte,
-            // en nuestro caso una List de un tipo en especifico User
-            Type tipoLista = new TypeToken<List<Coche>>() {
-            }.getType();
-            // convert JSON array to list of Coches
+    public static List<Libro> readJSONLibros(String fileName) throws IOException {
+        try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {
+            Type tipoLista = new TypeToken<List<Libro>>() {}.getType();
             return new Gson().fromJson(reader, tipoLista);
         }
     }
 
-    public static List<Coche> readCochessXML(String file) throws IOException, ParserConfigurationException, SAXException {
-        List<Coche> lista = new ArrayList<>();
+    public static List<Libro> readXMLLibros(String fileName) throws ParserConfigurationException, IOException, SAXException {
+        List<Libro> libros = new ArrayList<>();
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document document = builder.parse(new File(file));
-        document.getDocumentElement().normalize();
-        NodeList nList = document.getElementsByTagName("Coche"); // Cambiado a "Coche"
-        for (int i = 0; i < nList.getLength(); i++) {
-            Node node = nList.item(i);
+        Document document = builder.parse(Files.newInputStream(Paths.get(fileName)));
+        NodeList nodeList = document.getElementsByTagName("Libro");
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
-                Element eElement = (Element) node;
-                Coche coche = new Coche(); // Cambiado el nombre a minúsculas
-                // Parsing de los datos y conversión a Integer
-                int consumo = Integer.parseInt(eElement.getElementsByTagName("Consumo").item(0).getTextContent());
-                int deposito = Integer.parseInt(eElement.getElementsByTagName("Deposito").item(0).getTextContent());
-                coche.setConsumo(consumo); // Actualizado a Integer
-                coche.setDeposito(deposito); // Actualizado a Integer
-                lista.add(coche);
+                Element element = (Element) node;
+                String titulo = element.getElementsByTagName("Titulo").item(0).getTextContent();
+                long isbn = Long.parseLong(element.getElementsByTagName("ISBN").item(0).getTextContent());
+                String autor = element.getElementsByTagName("Autor").item(0).getTextContent();
+                int anio = Integer.parseInt(element.getElementsByTagName("Anio").item(0).getTextContent());
+                String editorial = element.getElementsByTagName("Editorial").item(0).getTextContent();
+                double precio = Double.parseDouble(element.getElementsByTagName("Precio").item(0).getTextContent());
+                libros.add(new Libro(titulo, isbn, autor, anio, editorial, precio));
             }
         }
-        return lista;
+        return libros;
     }
 }
