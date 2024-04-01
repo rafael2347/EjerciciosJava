@@ -4,10 +4,7 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -26,7 +23,8 @@ import java.util.Scanner;
  */
 public class TestCoche {
     public static void main(String[] args) {
-        try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("ficheros/FicheroCoche.txt"))) {
+        try (FileWriter salida = new FileWriter("ficheros/FicheroCoche.txt")) {
+
             List<Coche> listaCoches = new ArrayList<>();
 
             Coche car = new Coche();
@@ -51,11 +49,12 @@ public class TestCoche {
              * TXT
              * Guardo primero el deposito
              */
-            salida.write(car.getDeposito());
-            salida.write(car2.getDeposito());
+            salida.write("Deposito coche A: " + car.getDeposito() + "l\r");
+            salida.write("Deposito coche B: " + car2.getDeposito() + "l\r");
             /*Guardo tambien el kilometraje*/
-            salida.writeObject(car.autonomiaKm());
-            salida.writeObject(car2.autonomiaKm());
+            salida.write(car.autonomiaKm()+ "\r");
+            salida.write(car2.autonomiaKm()+ "\r");
+
 
             // Guardar los datos en un archivo XML
             listaCoches.add(car);

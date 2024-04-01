@@ -1,12 +1,12 @@
 [
   {
     "consumo": 7,
-    "deposito": 9,
-    "autonomia": 128.57143
+    "deposito": 10,
+    "autonomia": 142.85715
   },
   {
     "consumo": 15,
-    "deposito": 9,
-    "autonomia": 60.0
+    "deposito": 10,
+    "autonomia": 66.666664
   }
 ]
