@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 
 public class TestLibro {
     public static void main(String[] args) {
-        Libro libro = new Libro("Meditaciones", 97884427, "Marco Aurelio", 2024, "edaf", 7.00);
+        Libro libro = new Libro("Meditaciones", 978849927, "Marco Aurelio", 2024, "edaf", 7.00);
         try (ObjectOutputStream salida = new ObjectOutputStream(new FileOutputStream("ficheros/FicheroLibro.txt"))) {
 
             //salida.writeObject(libro);

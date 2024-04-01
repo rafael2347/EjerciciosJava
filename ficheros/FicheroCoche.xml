@@ -2,12 +2,12 @@
 <Coches>
     <Coche>
         <Consumo>7</Consumo>
-        <Deposito>10</Deposito>
-        <Autonomia>142.85715</Autonomia>
+        <Deposito>9</Deposito>
+        <Autonomia>128.57143</Autonomia>
     </Coche>
     <Coche>
         <Consumo>15</Consumo>
-        <Deposito>10</Deposito>
-        <Autonomia>66.666664</Autonomia>
+        <Deposito>9</Deposito>
+        <Autonomia>60.0</Autonomia>
     </Coche>
 </Coches>

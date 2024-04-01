@@ -13,17 +13,17 @@ package Ejercicio2;
 
 public class Libro {
     private String titulo;
-    private int isbn;
+    private long isbn;
     private String autor;
-    private int añoPublicacion;
+    private int anio;
     private String editorial;
     private double precio;
 
-    public Libro(String titulo, int isbn, String autor, int añoPublicacion, String editorial, double precio) {
+    public Libro(String titulo, long isbn, String autor, int anio, String editorial, double precio) {
         this.titulo = titulo;
         this.isbn = isbn;
         this.autor = autor;
-        this.añoPublicacion = añoPublicacion;
+        this.anio = anio;
         this.editorial = editorial;
         this.precio = precio;
     }
@@ -36,11 +36,11 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public int getIsbn() {
+    public long getIsbn() {
         return isbn;
     }
 
-    public void setIsbn(int isbn) {
+    public void setIsbn(long isbn) {
         this.isbn = isbn;
     }
 
@@ -52,12 +52,12 @@ public class Libro {
         this.autor = autor;
     }
 
-    public int getAñoPublicacion() {
-        return añoPublicacion;
+    public int getAnio() {
+        return anio;
     }
 
-    public void setAñoPublicacion(int añoPublicacion) {
-        this.añoPublicacion = añoPublicacion;
+    public void setAnio(int anio) {
+        this.anio = anio;
     }
 
     public String getEditorial() {
