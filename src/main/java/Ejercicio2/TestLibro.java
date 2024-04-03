@@ -41,9 +41,14 @@ public class TestLibro {
             miListaLibros.add(libro2);
             Libro.writeCSVLibros(miListaLibros, "ficheros/FicheroLibro");
 
-            // Leer desde un archivo CSV
-            List<Libro> miListaLibros2 = Libro.readCSVLibros("ficheros/FicheroLibro.csv");
-            System.out.println("Hay en la lista: " + miListaLibros2);
+              // Leer desde un archivo CSV
+              List<Libro> miListaLibros2 = Libro.readCSVLibros("ficheros/FicheroLibro.csv");
+              System.out.println("Libros desde CSV:");
+              for (Libro l : miListaLibros2) {
+                  System.out.println(l);
+              }
+
+
 
             // Leer desde un archivo JSON
             Path jsonFilePath = Paths.get("ficheros/FicheroLibro.json");

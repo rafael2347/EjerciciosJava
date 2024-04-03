@@ -211,13 +211,26 @@ public class Libro {
         List<Libro> libros = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
+            // Saltar la primera línea del archivo CSV que contiene el encabezado
+            reader.readLine();
             while ((line = reader.readLine()) != null) {
-                System.out.println(line); 
-
+                String[] partes = line.split(",");
+                if (partes.length >= 6) { // Verificar que haya al menos seis partes
+                    String titulo = partes[0].trim();
+                    long isbn = Long.parseLong(partes[1].trim());
+                    String autor = partes[2].trim();
+                    int anio = Integer.parseInt(partes[3].trim());
+                    String editorial = partes[4].trim();
+                    double precio = Double.parseDouble(partes[5].replace(',', '.')); // Reemplazar la coma por un punto en el precio
+                    libros.add(new Libro(titulo, isbn, autor, anio, editorial, precio));
+                }
             }
         }
         return libros;
     }
+
+
+
 
 
     public static List<Libro> readJSONLibros(String fileName) throws IOException {
