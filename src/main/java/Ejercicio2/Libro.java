@@ -118,11 +118,19 @@ public class Libro {
 
     public static void writeCSVLibros(List<Libro> listaLibros, String fileName) throws IOException {
         final String NOMBRE_FILE = fileName + ".csv";
-        Files.writeString(Paths.get(NOMBRE_FILE), "titulo, isbn, autor, anio, editorial, precio\n\r", StandardCharsets.UTF_8, StandardOpenOption.CREATE);
-        for (Libro libro : listaLibros) {
-            Files.writeString(Paths.get(NOMBRE_FILE), libro.toString(), StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+        try (FileWriter writer = new FileWriter(NOMBRE_FILE)) {
+            writer.write("titulo,isbn,autor,anio,editorial,precio\n"); // Escribir encabezado
+
+            for (Libro libro : listaLibros) {
+                writer.write(String.format("%s,%d,%s,%d,%s,%.2f\n",
+                        libro.getTitulo(), libro.getIsbn(), libro.getAutor(),
+                        libro.getAnio(), libro.getEditorial(), libro.getPrecio()));
+            }
         }
     }
+
+
+
 
     public static void writeXMLLibros(List<Libro> listaLibros, String fileName) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -203,23 +211,14 @@ public class Libro {
         List<Libro> libros = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            // Ignorar la primera línea (encabezado)
-            reader.readLine();
             while ((line = reader.readLine()) != null) {
-                String[] partes = line.split(",");
-                if (partes.length == 6) {
-                    String titulo = partes[0].trim();
-                    long isbn = Long.parseLong(partes[1].trim());
-                    String autor = partes[2].trim();
-                    int anio = Integer.parseInt(partes[3].trim());
-                    String editorial = partes[4].trim();
-                    double precio = Double.parseDouble(partes[5].trim());
-                    libros.add(new Libro(titulo, isbn, autor, anio, editorial, precio));
-                }
+                System.out.println(line); 
+
             }
         }
         return libros;
     }
+
 
     public static List<Libro> readJSONLibros(String fileName) throws IOException {
         try (Reader reader = Files.newBufferedReader(Paths.get(fileName))) {

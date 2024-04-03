@@ -1,2 +1,3 @@
-titulo, isbn, autor, anio, editorial, precio
-Libro{titulo='Meditaciones', isbn=978849927, autor='Marco Aurelio', anio=2024, editorial='edaf', precio=7.0}Libro{titulo='Otro libro', isbn=123456789, autor='Autor Desconocido', anio=2023, editorial='Editorial XYZ', precio=9.99}Libro{titulo='Meditaciones', isbn=978849927, autor='Marco Aurelio', anio=2024, editorial='edaf', precio=7.0}Libro{titulo='Otro libro', isbn=123456789, autor='Autor Desconocido', anio=2023, editorial='Editorial XYZ', precio=9.99}Libro{titulo='Meditaciones', isbn=978849927, autor='Marco Aurelio', anio=2024, editorial='edaf', precio=7.0}Libro{titulo='Otro libro', isbn=123456789, autor='Autor Desconocido', anio=2023, editorial='Editorial XYZ', precio=9.99}Libro{titulo='Meditaciones', isbn=978849927, autor='Marco Aurelio', anio=2024, editorial='edaf', precio=7.0}Libro{titulo='Como poner un 10', isbn=123456789, autor='Autor Desconocido', anio=2023, editorial='Editorial XYZ', precio=9.99}
+titulo,isbn,autor,anio,editorial,precio
+Meditaciones,978849927,Marco Aurelio,2024,edaf,7,00
+Como poner un 10,123456789,Autor Desconocido,2023,Editorial XYZ,9,99
