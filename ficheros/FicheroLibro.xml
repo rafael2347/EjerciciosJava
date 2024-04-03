@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Libros>
+    <Libro>
+        <Titulo>Meditaciones</Titulo>
+        <ISBN>978849927</ISBN>
+        <Autor>Marco Aurelio</Autor>
+        <Anio>2024</Anio>
+        <Editorial>edaf</Editorial>
+        <Precio>7.0</Precio>
+    </Libro>
+    <Libro>
+        <Titulo>Como poner un 10</Titulo>
+        <ISBN>123456789</ISBN>
+        <Autor>Autor Desconocido</Autor>
+        <Anio>2023</Anio>
+        <Editorial>Editorial XYZ</Editorial>
+        <Precio>9.99</Precio>
+    </Libro>
+</Libros>

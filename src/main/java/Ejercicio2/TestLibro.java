@@ -1,56 +1,63 @@
 package Ejercicio2;
 
-import org.example.Coche;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
+/**
+ * La clase TestLibro se encarga de crear un objeto libro, el cual pasa los datos a la clase Libro y con los getters
+ * podemos traer los datos, después guardamos los datos para el fichero txt, pasarle los datos al csv, al xml y al json
+ */
 public class TestLibro {
     public static void main(String[] args) {
-        Coche car = new Coche(10, 50);
-        Coche car2 = new Coche(12, 60);
-
-        Libro libro = new Libro("Meditaciones", 978849927, "Marco Aurelio", 2024, "edaf", 7.00);
         try (FileWriter salida = new FileWriter("ficheros/FicheroLibro.txt")) {
+            List<Libro> listaLibros = new ArrayList<>();
 
-            // Salida del objeto libro
-            System.out.println(libro);
+            Libro libro = new Libro("Meditaciones", 978849927, "Marco Aurelio", 2024, "edaf", 7.00);
+            Libro libro2 = new Libro("Como poner un 10", 123456789, "Autor Desconocido", 2023, "Editorial XYZ", 9.99);
+
+            //Guardar los datos en un archivo TXT
+            salida.write(libro.toString()+"\r");
+            salida.write(libro2.toString());
 
             // Guardar los datos en un archivo XML
-            List<Coche> listaCoches = new ArrayList<>();
-            listaCoches.add(car);
-            listaCoches.add(car2);
-            Coche.writeXMLCoches(listaCoches, "ficheros/FicheroCoche.xml");
+            listaLibros.add(libro);
+            listaLibros.add(libro2);
+            Libro.writeXMLLibros(listaLibros, "ficheros/FicheroLibro.xml");
 
             // Guardar los datos en un archivo JSON
-            Coche.writeJSONCoches(listaCoches, "ficheros/FicheroCoche.json");
+            Libro.writeJSONLibros(listaLibros, "ficheros/FicheroLibro.json");
 
             // Guardar los datos en un archivo CSV
-            ArrayList<Coche> miListaCoches = new ArrayList<>();
-            miListaCoches.add(car);
-            miListaCoches.add(car2);
-            Coche.writeCSVCoches(miListaCoches, "ficheros/FicheroCoche");
+            ArrayList<Libro> miListaLibros = new ArrayList<>();
+            miListaLibros.add(libro);
+            miListaLibros.add(libro2);
+            Libro.writeCSVLibros(miListaLibros, "ficheros/FicheroLibro");
 
             // Leer desde un archivo CSV
-            List<Coche> miListaCoches2 = Coche.readCSVCoches("ficheros/FicheroCoche.csv");
-            System.out.println("Hay en la lista: " + miListaCoches2);
+            List<Libro> miListaLibros2 = Libro.readCSVLibros("ficheros/FicheroLibro.csv");
+            System.out.println("Hay en la lista: " + miListaLibros2);
 
             // Leer desde un archivo JSON
-            Path jsonFilePath = Paths.get("ficheros/FicheroCoche.json");
-            List<Coche> cochesDesdeJSON = Coche.readJSONCoches(jsonFilePath);
-            System.out.println("Coches desde JSON: " + cochesDesdeJSON);
+            Path jsonFilePath = Paths.get("ficheros/FicheroLibro.json");
+            List<Libro> librosDesdeJSON = Libro.readJSONLibros(jsonFilePath.toString());
+            System.out.println("Libros desde JSON: " + librosDesdeJSON);
 
             // Leer desde un archivo XML
-            List<Coche> cochesDesdeXML = Coche.readCochessXML("ficheros/FicheroCoche.xml");
-            System.out.println("Coches desde XML: " + cochesDesdeXML);
+            List<Libro> librosDesdeXML = Libro.readXMLLibros("ficheros/FicheroLibro.xml");
+            System.out.println("Libros desde XML: " + librosDesdeXML);
 
+
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         } catch (IOException | ParserConfigurationException | TransformerException e) {
             e.printStackTrace();
         } catch (SAXException e) {

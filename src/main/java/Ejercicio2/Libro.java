@@ -31,6 +31,14 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>
+ *     Esta clase Libro contiene los atributos propios de un libro, podemos ver que tiene los getters, setters y
+ *     constructores por defecto, tambien podemos ver que están los métodos de escribir en un fichero csv, json y xml,
+ *     tambien podemos ver los métodos de leer los ficheros, para que pueda ver el usuario los datos que se han
+ *     añadido.
+ * </p>
+ */
 public class Libro {
     private String titulo;
     private long isbn;
@@ -94,6 +102,18 @@ public class Libro {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return "Libro{" +
+                "titulo='" + titulo + '\'' +
+                ", isbn=" + isbn +
+                ", autor='" + autor + '\'' +
+                ", anio=" + anio +
+                ", editorial='" + editorial + '\'' +
+                ", precio=" + precio +
+                '}';
     }
 
     public static void writeCSVLibros(List<Libro> listaLibros, String fileName) throws IOException {

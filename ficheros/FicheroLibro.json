@@ -1,0 +1,18 @@
+[
+  {
+    "titulo": "Meditaciones",
+    "isbn": 978849927,
+    "autor": "Marco Aurelio",
+    "anio": 2024,
+    "editorial": "edaf",
+    "precio": 7.0
+  },
+  {
+    "titulo": "Como poner un 10",
+    "isbn": 123456789,
+    "autor": "Autor Desconocido",
+    "anio": 2023,
+    "editorial": "Editorial XYZ",
+    "precio": 9.99
+  }
+]

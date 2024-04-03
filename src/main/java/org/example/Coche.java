@@ -164,7 +164,7 @@ public class Coche {
                     continue; // Saltar la primera línea del archivo CSV
                 }
 
-                if (!linea.isEmpty()) { // Verificar que la línea no esté vacía
+                if (!linea.isEmpty()) {
                     String[] partes = linea.split(",");
                     if (partes.length >= 2 && !partes[0].isEmpty() && !partes[1].isEmpty()) { // Verificar que haya al menos dos partes (consumo y depósito) y que no estén vacías
                         int consumo = Integer.parseInt(partes[0].trim());
@@ -181,14 +181,10 @@ public class Coche {
 
 
     public static List<Coche> readJSONCoches(Path path) throws IOException {
-        // create a reader
+
         try (Reader reader = Files.newBufferedReader(path)) {
-            //Type, esta es una clase del propio lenguaje de programación Java que nos permite
-            // representar cualquier tipo que el lenguaje soporte,
-            // en nuestro caso una List de un tipo en especifico User
             Type tipoLista = new TypeToken<List<Coche>>() {
             }.getType();
-            // convert JSON array to list of Coches
             return new Gson().fromJson(reader, tipoLista);
         }
     }
@@ -204,12 +200,11 @@ public class Coche {
             Node node = nList.item(i);
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element eElement = (Element) node;
-                Coche coche = new Coche(); // Cambiado el nombre a minúsculas
-                // Parsing de los datos y conversión a Integer
+                Coche coche = new Coche();
                 int consumo = Integer.parseInt(eElement.getElementsByTagName("Consumo").item(0).getTextContent());
                 int deposito = Integer.parseInt(eElement.getElementsByTagName("Deposito").item(0).getTextContent());
-                coche.setConsumo(consumo); // Actualizado a Integer
-                coche.setDeposito(deposito); // Actualizado a Integer
+                coche.setConsumo(consumo);
+                coche.setDeposito(deposito);
                 lista.add(coche);
             }
         }
