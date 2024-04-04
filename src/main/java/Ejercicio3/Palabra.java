@@ -19,9 +19,7 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -148,4 +146,24 @@ public class Palabra {
         };
         return gson.fromJson(jsonContent, token.getType());
     }
+    public static void writeCSVPalabras(List<Palabra> listaPalabras, String fileName) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (Palabra palabra : listaPalabras) {
+                writer.write(palabra.getPalabra());
+                writer.newLine();
+            }
+        }
+    }
+
+    public static List<Palabra> readCSVPalabras(String fileName) throws IOException {
+        List<Palabra> palabras = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                palabras.add(new Palabra(line));
+            }
+        }
+        return palabras;
+    }
+
 }

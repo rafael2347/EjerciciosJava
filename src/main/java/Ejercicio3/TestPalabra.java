@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TestPalabra {
     public static void main(String[] args) {
-        try (FileWriter salida = new FileWriter("ficheros/FicheroCoche.txt")) {
+        try (FileWriter salida = new FileWriter("ficheros/FicheroPalabra.txt")) {
             Palabra palabra = new Palabra("FANTASTICO");
             Palabra palabra2 = new Palabra("telefono");
 
@@ -38,9 +38,11 @@ public class TestPalabra {
             salida.write(listaPalabras+"\n");
             Palabra.writeXMLPalabras(listaPalabras, "ficheros/palabras.xml");
             Palabra.writeJSONPalabras(listaPalabras, "ficheros/palabras.json");
+            Palabra.writeCSVPalabras(listaPalabras, "ficheros/palabras.csv");
 
             List<Palabra> palabrasFromXML = Palabra.readXMLPalabras("ficheros/palabras.xml");
             List<Palabra> palabrasFromJSON = Palabra.readJSONPalabras("ficheros/palabras.json");
+            List<Palabra> palabrasFromCSV = Palabra.readCSVPalabras("ficheros/palabras.csv");
 
             for (Palabra p : palabrasFromXML) {
                 System.out.println("Palabra desde XML: " + p.getPalabra());
@@ -48,6 +50,10 @@ public class TestPalabra {
 
             for (Palabra p : palabrasFromJSON) {
                 System.out.println("Palabra desde JSON: " + p.getPalabra());
+            }
+
+            for (Palabra p : palabrasFromCSV) {
+                System.out.println("Palabra desde CSV: " + p.getPalabra());
             }
 
         } catch (IOException | ParserConfigurationException | SAXException e) {
