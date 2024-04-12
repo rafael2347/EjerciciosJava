@@ -9,6 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>
+ * Esta es la clase test, aquí simplemente probaremos la clase Palabra, le paso a traves de un objeto una palabra en minuscula
+ * y en otro objeto la palabra en mayuscula, para poder saber si se están realizando bien los métodos creados anteriormente
+ * por ultimo guardamos la informacion en ficheros txt, csv, xml y json para luego leerlos, los métodos que podemos encontrar
+ * más a bajo son los métodos que le vamos pasando  a los métodos de la clase Palabra.
+ * </p>
+ */
 public class TestPalabra {
     public static void main(String[] args) {
         try (FileWriter salida = new FileWriter("ficheros/FicheroPalabra.txt")) {

@@ -22,6 +22,15 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>
+ * La clase EcuacionSegundoGrado la cual tiene los atributos de a, b y c, estos servirán para poder realizar la ecuación,
+ * para crear la ecuacion de segundo grado, para ello haremos la ecuacion sin la raiz cuadrada, luego para sacar las dos
+ * soluciones cogera del array los valores, si tiene usa solucion solo lo meterá por el else y harña la operación, que
+ * no tiene ninguna devolvería vacio, todo esto siendo el discriminante mayor que cero.
+ * Por último tenemos los métodos de leer y escribir del csv, xml y json.
+ * </p>
+ */
 public class EcuacionSegundoGrado {
     private double a;
     private double b;
@@ -57,16 +66,28 @@ public class EcuacionSegundoGrado {
         this.c = c;
     }
 
-    public double Ecuacion() {
+    public double[] Ecuacion() {
         double discriminante = Math.pow(b, 2) - (4 * a * c);
+        double[] soluciones;
 
-        if (discriminante < 0) {
-            // Negativo
-            return Double.NaN; // O devuelve otro valor especial, según lo prefieras
+        if (discriminante >= 0) {
+            // Dos soluciones
+            if (discriminante > 0) {
+                soluciones = new double[2];
+                soluciones[0] = (-b + Math.sqrt(discriminante)) / (2 * a);
+                soluciones[1] = (-b - Math.sqrt(discriminante)) / (2 * a);
+            } else { // Una solución
+                soluciones = new double[1];
+                soluciones[0] = -b / (2 * a);
+            }
         } else {
-            return ((-b) + Math.sqrt(discriminante)) / (2 * a);
+            // Sin solución
+            soluciones = new double[0];
         }
+
+        return soluciones;
     }
+
 
     public static void writeXML(List<EcuacionSegundoGrado> ecuaciones, String fileName) throws ParserConfigurationException, TransformerException {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -81,7 +102,14 @@ public class EcuacionSegundoGrado {
             ecuacionElement.setAttribute("a", String.valueOf(ecuacion.getA()));
             ecuacionElement.setAttribute("b", String.valueOf(ecuacion.getB()));
             ecuacionElement.setAttribute("c", String.valueOf(ecuacion.getC()));
-            ecuacionElement.setAttribute("raiz1", String.valueOf(ecuacion.Ecuacion()));
+
+            double[] raices = ecuacion.Ecuacion();
+            for (int i = 0; i < raices.length; i++) {
+                Element raizElement = doc.createElement("Raiz" + (i + 1));
+                raizElement.setTextContent(String.valueOf(raices[i]));
+                ecuacionElement.appendChild(raizElement);
+            }
+
             ecuacionesElement.appendChild(ecuacionElement);
         }
 
@@ -120,7 +148,14 @@ public class EcuacionSegundoGrado {
             jsonEcuacion.addProperty("a", ecuacion.getA());
             jsonEcuacion.addProperty("b", ecuacion.getB());
             jsonEcuacion.addProperty("c", ecuacion.getC());
-            jsonEcuacion.addProperty("raiz1", ecuacion.Ecuacion());
+
+            double[] raices = ecuacion.Ecuacion();
+            JsonArray jsonRaices = new JsonArray();
+            for (double raiz : raices) {
+                jsonRaices.add(raiz);
+            }
+
+            jsonEcuacion.add("raices", jsonRaices);
             jsonEcuaciones.add(jsonEcuacion);
         }
 
@@ -128,6 +163,7 @@ public class EcuacionSegundoGrado {
             writer.write(gson.toJson(jsonEcuaciones));
         }
     }
+
 
     public static List<EcuacionSegundoGrado> readJSON(String fileName) throws IOException {
         Gson gson = new Gson();
@@ -147,11 +183,20 @@ public class EcuacionSegundoGrado {
     public static void writeCSV(List<EcuacionSegundoGrado> ecuaciones, String fileName) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (EcuacionSegundoGrado ecuacion : ecuaciones) {
-                writer.write(ecuacion.getA() + "," + ecuacion.getB() + "," + ecuacion.getC() + "," + ecuacion.Ecuacion());
+                double[] raices = ecuacion.Ecuacion();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < raices.length; i++) {
+                    sb.append(raices[i]);
+                    if (i < raices.length - 1) {
+                        sb.append(", ");
+                    }
+                }
+                writer.write(ecuacion.getA() + "," + ecuacion.getB() + "," + ecuacion.getC() + "," + sb.toString());
                 writer.newLine();
             }
         }
     }
+
 
     public static List<EcuacionSegundoGrado> readCSV(String fileName) throws IOException {
         List<EcuacionSegundoGrado> ecuaciones = new ArrayList<>();

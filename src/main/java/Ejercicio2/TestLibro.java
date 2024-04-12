@@ -12,8 +12,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
+ * <p>
  * La clase TestLibro se encarga de crear un objeto libro, el cual pasa los datos a la clase Libro y con los getters
- * podemos traer los datos, después guardamos los datos para el fichero txt, pasarle los datos al csv, al xml y al json
+ * podemos traer los datos, después guardamos los datos para el fichero txt, pasarle los datos al csv, al xml y al json.
+ * </p>
  */
 public class TestLibro {
     public static void main(String[] args) {
@@ -23,19 +25,19 @@ public class TestLibro {
             Libro libro = new Libro("Meditaciones", 978849927, "Marco Aurelio", 2024, "edaf", 7.00);
             Libro libro2 = new Libro("Como poner un 10", 123456789, "Autor Desconocido", 2023, "Editorial XYZ", 9.99);
 
-            //Guardar los datos en un archivo TXT
+            // TXT
             salida.write(libro.toString()+"\r");
             salida.write(libro2.toString());
 
-            // Guardar los datos en un archivo XML
+            // XML
             listaLibros.add(libro);
             listaLibros.add(libro2);
             Libro.writeXMLLibros(listaLibros, "ficheros/FicheroLibro.xml");
 
-            // Guardar los datos en un archivo JSON
+            // JSON
             Libro.writeJSONLibros(listaLibros, "ficheros/FicheroLibro.json");
 
-            // Guardar los datos en un archivo CSV
+            // CSV
             ArrayList<Libro> miListaLibros = new ArrayList<>();
             miListaLibros.add(libro);
             miListaLibros.add(libro2);

@@ -119,7 +119,7 @@ public class Libro {
     public static void writeCSVLibros(List<Libro> listaLibros, String fileName) throws IOException {
         final String NOMBRE_FILE = fileName + ".csv";
         try (FileWriter writer = new FileWriter(NOMBRE_FILE)) {
-            writer.write("titulo,isbn,autor,anio,editorial,precio\n"); // Escribir encabezado
+            writer.write("titulo,isbn,autor,anio,editorial,precio\n");
 
             for (Libro libro : listaLibros) {
                 writer.write(String.format("%s,%d,%s,%d,%s,%.2f\n",
@@ -137,7 +137,7 @@ public class Libro {
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.newDocument();
 
-        // Elemento raíz
+
         Element librosElement = doc.createElement("Libros");
         doc.appendChild(librosElement);
 
@@ -211,8 +211,7 @@ public class Libro {
         List<Libro> libros = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
-            // Saltar la primera línea del archivo CSV que contiene el encabezado
-            reader.readLine();
+
             while ((line = reader.readLine()) != null) {
                 String[] partes = line.split(",");
                 if (partes.length >= 6) { // Verificar que haya al menos seis partes

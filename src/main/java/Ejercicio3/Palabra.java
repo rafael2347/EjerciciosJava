@@ -26,6 +26,24 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>
+ *     Esta clase consiste en que el usuario le pasa una palabra a través de un objeto, esta la recibe la clase Palabra,
+ *     la cual se encargará de almacenarla y con ella se le pasará a los demás métodos, tenemos el primer método que es
+ *     devolver toda la palabra en mayúculas, para ello usamos el método que ya tiene java y se le devolverá al usuario
+ *     toda la palabra en mayúscula, luego tenemos el método de devolver toda la palabra en minúscula, la cual usando un
+ *     método que tiene java, se le pasará al usuario y convertirá toda la palabra a minuscula, luego tenemos el método de
+ *     contador de palabras, que en este caso le devolverá cuantas letras tiene esa palabra, para ello se me ha ocurrido
+ *     usar el length, ya que devuelve una longitud de una palabra, pues nos viene perfecto, luego tenemos el método de
+ *     remplazar letras el cual remplaza las letras de la palabra con la a y con la u, seguidamente tenemos el metodo de
+ *     devolver la primera letra, el cual dividirá a la palabra en varias partes enumeradas para eso sirve el charAt y en
+ *     nuestro caso como solo queremos la primera letra, ponemos el uno, luego tenemos el método de escoger la última letra
+ *     en mayúscula, la cual la palabra la pasará por un charAt, seguidamente para poder saber que es la ultima, medimos
+ *     la palabra y le quitamos uno para poder coger siempre la del final, luego pasamos esa letra por un toString para
+ *     convertirla a letra, porque antes era nada más que un número y luego devolvemos la letra en mayúscula con el método
+ *     que ya tiene java incorporado, por ultimo tenemos los métodos de leer y escribir en csv, xml y json.
+ * </p>
+ */
 public class Palabra {
     private String palabra;
 

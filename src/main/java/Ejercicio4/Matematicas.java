@@ -23,6 +23,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * <p>
+ * En la clase Matematicas podemos encontrarnos el atributo numero, con su getters y setters, contructor y toString
+ * más abajo podemos ver los diferentes métodos que ya tiene java, para calcular la raiz cuadrada usamos el sqrt, para
+ * calcular la raiz cubica usamos el cbrt, para el redondeo usamos el ceil, para el numero aleatorio para ello redondeammos
+ * el número que le pasamos, generamos un número aleatorio, analiza el número que se le pasa y genera un número aleatrio,
+ * por últomo tenemos los métodos de lectura y escritura del csv, xml y json, que posteriormente se lo pasaremos a la
+ * clase test.
+ * </p>
+ */
 public class Matematicas {
     private double numero;
 

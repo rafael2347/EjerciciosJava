@@ -4,6 +4,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * <p>
+ * Para la clase test simplemente le he pasado un número con decimales, tanto positivo como negativo, he ido creando métodos
+ * para pasarle los números que hay en los objetos  y lo que me devuelve lo imprimo por pantalla y ya por último tenemos
+ * como se guarda la información en el txt, csv, xml y json, que luego más tarde tambien leerá esos ficheros creados.
+ * </p>
+ */
 public class TestMatematicas {
     public static void main(String[] args) {
         try (FileWriter salida = new FileWriter("ficheros/numero.txt")) {
